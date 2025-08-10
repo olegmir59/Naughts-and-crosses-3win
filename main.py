@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 window = tk.Tk()
 window.title("Крестики-нолики")
-window.geometry("300x350")
+window.geometry("1200x1200")
 
 current_player = "X"
 player1_score = 0
@@ -11,6 +12,12 @@ player2_score = 0
 max_wins = 3  # Количество побед для победы в серии
 
 buttons = []
+
+# Загрузка фона
+background_image = Image.open("Фон.jpg")
+background_photo = ImageTk.PhotoImage(background_image)
+background_label = tk.Label(window, image=background_photo)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 
 def check_winner():
@@ -85,17 +92,17 @@ for i in range(3):
     row = []
     for j in range(3):
         btn = tk.Button(window, text="", font=("Arial", 20), width=5, height=2, command=lambda r=i, c=j: on_click(r, c))
-        btn.grid(row=i, column=j)
+        btn.grid(row=i, column=j+30)
         row.append(btn)
     buttons.append(row)
 
 # Кнопка сброса
 reset_button = tk.Button(window, text="Сброс", font=("Arial", 14), command=reset_game)
-reset_button.grid(row=3, column=0, columnspan=3)
+reset_button.grid(row=3, column=30, columnspan=3)
 
 # Счетчик побед
 score_label = tk.Label(window, text=f"X: {player1_score}   O: {player2_score}", font=("Arial", 14))
-score_label.grid(row=4, column=0, columnspan=3)
+score_label.grid(row=4, column=30, columnspan=3)
 
 # Выбор игрока
 choose_player()
