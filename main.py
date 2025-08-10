@@ -8,6 +8,7 @@ window.geometry("300x350")
 current_player = "X"
 player1_score = 0
 player2_score = 0
+max_wins = 3  # Количество побед для победы в серии
 
 buttons = []
 
@@ -41,7 +42,11 @@ def on_click(row, col):
     if check_winner():
         messagebox.showinfo("Игра окончена", f"Игрок {current_player} победил!")
         update_score(current_player)
-        reset_game()
+        if player1_score == max_wins or player2_score == max_wins:
+            messagebox.showinfo("Игра окончена", f"Игрок {current_player} выиграл серию!")
+            window.quit()
+        else:
+            reset_game()
     elif is_board_full():
         messagebox.showinfo("Игра окончена", "Ничья!")
         reset_game()
